@@ -45,3 +45,9 @@ jobs:
         target: 'https://localhost:8443/benchmark/'
       #  rules_file_name: '.zap/rules.tsv'
         cmd_options: '-j -P 8090'
+
+    - name: Results and Scores
+      run: |
+            chmod +x createScorecards.sh
+            bash createScorecards.sh
+            mvn validate -Pbenchmarkscore -Dexec.args="expectedresults-1.2.csv results"
