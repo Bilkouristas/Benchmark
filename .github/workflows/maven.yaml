@@ -46,6 +46,12 @@ jobs:
       #  rules_file_name: '.zap/rules.tsv'
         cmd_options: '-j -P 8090'
 
+    - name: Installing Utils
+      run: |
+            git clone https://github.com/OWASP-Benchmark/BenchmarkUtils.git
+            cd BenchmarkUtils
+            mvn install
+            
     - name: Results and Scores
       run: |
             chmod +x createScorecards.sh
