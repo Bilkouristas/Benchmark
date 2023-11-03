@@ -6,6 +6,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    permissions: write-all
 
     steps:
     - uses: actions/checkout@v4
@@ -26,14 +27,14 @@ jobs:
             bash runBenchmark.sh &
       
 
-    # - name: ZAP Passive Scan
-    #   uses: zaproxy/action-baseline@v0.7.0
-    #   with:
-    #   #  token: ${{ secrets.GITHUB_TOKEN }}
-    #     docker_name: 'owasp/zap2docker-stable'
-    #     target: 'https://localhost:8443/benchmark/'
-    #   #  rules_file_name: '.zap/rules.tsv'
-    #     cmd_options: '-j -P 8090'
+    - name: ZAP Passive Scan
+      uses: zaproxy/action-baseline@v0.7.0
+      with:
+      #  token: ${{ secrets.GITHUB_TOKEN }}
+        docker_name: 'owasp/zap2docker-stable'
+        target: 'https://localhost:8443/benchmark/'
+      #  rules_file_name: '.zap/rules.tsv'
+        cmd_options: '-j -P 8090'
     
 
     - name: ZAP Full Scan
