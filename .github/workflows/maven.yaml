@@ -23,7 +23,7 @@ jobs:
     - name: Run the app
       run: |
             chmod +x runBenchmark.sh
-            bash runBenchmark.sh
+            bash runBenchmark.sh &
       
 
     - name: ZAP Passive Scan
