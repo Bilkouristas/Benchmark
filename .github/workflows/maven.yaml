@@ -20,4 +20,27 @@ jobs:
       run: mvn spotless:check
     - name: Run unit tests
       run: mvn test
+    - name: Run the app
+      run: |
+            chmod +x runBenchmark.sh/.bat
+            zsh runBenchmark.sh/.bat
+      
 
+    - name: ZAP Passive Scan
+      uses: zaproxy/action-baseline@v0.7.0
+      with:
+      #  token: ${{ secrets.GITHUB_TOKEN }}
+        docker_name: 'owasp/zap2docker-stable'
+        target: 'https://localhost:8443/benchmark/'
+      #  rules_file_name: '.zap/rules.tsv'
+        cmd_options: '-j -P 8090'
+    
+
+    - name: ZAP Full Scan
+      uses: zaproxy/action-full-scan@v0.4.0
+      with:
+      #  token: ${{ secrets.GITHUB_TOKEN }}
+        docker_name: 'owasp/zap2docker-stable'
+        target: 'https://localhost:8443/benchmark/'
+      #  rules_file_name: '.zap/rules.tsv'
+        cmd_options: '-j -P 8090'
