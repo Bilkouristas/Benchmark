@@ -22,8 +22,8 @@ jobs:
       run: mvn test
     - name: Run the app
       run: |
-            chmod +x runBenchmark.sh/.bat
-            zsh runBenchmark.sh/.bat
+            chmod +x runBenchmark.sh
+            zsh runBenchmark.sh
       
 
     - name: ZAP Passive Scan
