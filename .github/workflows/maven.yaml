@@ -37,14 +37,14 @@ jobs:
         cmd_options: '-j -P 8090'
     
 
-    - name: ZAP Full Scan
-      uses: zaproxy/action-full-scan@v0.4.0
-      with:
-      #  token: ${{ secrets.GITHUB_TOKEN }}
-        docker_name: 'owasp/zap2docker-stable'
-        target: 'https://localhost:8443/benchmark/'
-      #  rules_file_name: '.zap/rules.tsv'
-        cmd_options: '-j -P 8090'
+    # - name: ZAP Full Scan
+    #   uses: zaproxy/action-full-scan@v0.4.0
+    #   with:
+    #   #  token: ${{ secrets.GITHUB_TOKEN }}
+    #     docker_name: 'owasp/zap2docker-stable'
+    #     target: 'https://localhost:8443/benchmark/'
+    #   #  rules_file_name: '.zap/rules.tsv'
+    #     cmd_options: '-a -j -P 8090'
 
     - name: Installing Utils
       run: |
@@ -58,6 +58,10 @@ jobs:
             bash createScorecards.sh
             mvn validate -Pbenchmarkscore -Dexec.args="expectedresults-1.2.csv results"
 
+    
+    - uses: actions/checkout@v4
+    - name: switching from HTTPS to SSH
+      run: git remote set-url origin ${{ secrets.ssh }}
     - name: check for changes
       run: git status
     - name: stage changed files
